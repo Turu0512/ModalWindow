@@ -21,7 +21,7 @@ for(let i=0; i<n; i++){
     isDisabled: true,
   });
 }
-console.log(dates);
+return dates;
 }
 
 
@@ -38,7 +38,7 @@ function getCalendarBody(){
       isDisabled:false,
     });
   }
-  console.log(dates);
+  return dates;
 }
 
 function getCalendarTail(){//来月のカレンダーのデータ
@@ -54,11 +54,17 @@ function getCalendarTail(){//来月のカレンダーのデータ
     });
 
   }
-console.log(dates);
+return dates;
 }
 
+function createCalendar(){
+  const dates = [
+    ...getCalendarHead(),//スプレット構文を使うことで、一つ一つの結果を結合させる。
+    ...getCalendarBody(),//実行した結果を反映させるためにそれぞれの関数にreturnさせる。
+    ...getCalendarTail(),
+  ];
+  console.log(dates);
+}
 
-getCalendarTail();
-// getCalendarHead();
-// getCalendarBody();
+createCalendar();
 }
