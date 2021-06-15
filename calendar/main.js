@@ -58,7 +58,21 @@ function getCalendarTail(){//最終週の来月の日付部分
 return dates;
 }
 
-function createCalendar(){
+function clearCalendar(){
+  const tbody = document.querySelector(`tbody`);
+  while (tbody.firstChild){//tbodyに子要素がある。trueの時
+    tbody.removeChild(tbody.firstChild);//削除する
+  }
+}
+
+function renderTitles(){
+  const title = `${year}/${String(month+1).padStart(2, `0`)}`;//padStartで二桁にして、二桁ではないときに０を代入 
+  //文字列にしか使えないのでStringを使って文字列に変換している。結果を文字列として出力するメソッド
+  // ('0' + (month + 1)).slice(-2)でも可
+  document.getElementById(`title`).textContent = title;
+}
+
+function renderWeeks(){
   const dates = [
     ...getCalendarHead(),//スプレット構文を使うことで、一つ一つの結果を結合させる。
     ...getCalendarBody(),//実行した結果を反映させるためにそれぞれの関数にreturnさせる。
@@ -96,6 +110,13 @@ weeks.forEach(week =>{
   });
   document.querySelector(`tbody`).appendChild(tr)
 });
+
+}
+
+function createCalendar(){
+clearCalendar();
+renderTitles();
+renderWeeks();
 }
 
 document.getElementById(`prev`).addEventListener(`click`,()=>{//前の月に移動
