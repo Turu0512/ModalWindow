@@ -35,7 +35,7 @@ td.disabled {
   opacity: 0.3;
 }
 
-ts.today {
+td.today {
   font-weight: bold;
 }
 

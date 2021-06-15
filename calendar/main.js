@@ -3,8 +3,9 @@
 console.clear();//コンソールログを初期化。リロードでもいいが、今回は紹介程度？
 
 {
-let year = 2020;
-let month =4;//5
+  const today = new Date();
+let year = today.getFullYear();
+let month = today.getMonth();
 
 function getCalendarHead(){//先月のカレンダーの頭を取得する
 const dates = [];
@@ -38,6 +39,10 @@ function getCalendarBody(){
       isToday:false,
       isDisabled:false,
     });
+  }
+  if(year === today.getFullYear() && month === today.getMonth()){
+
+    dates[today.getDate()-1].isToday = true;
   }
   return dates;
 }
