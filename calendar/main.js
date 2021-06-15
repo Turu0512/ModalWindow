@@ -40,7 +40,7 @@ function getCalendarBody(){
       isDisabled:false,
     });
   }
-  if(year === today.getFullYear() && month === today.getMonth()){
+  if(year === today.getFullYear() && month === today.getMonth()){//当日のみを太字にする
 
     dates[today.getDate()-1].isToday = true;
   }
@@ -139,6 +139,12 @@ document.getElementById(`next`).addEventListener(`click`,()=>{
     month = 0;
   }
   createCalendar();
+});
+document.getElementById(`today`).addEventListener(`click`,()=>{
+ year = today.getFullYear();
+ month = today.getMonth();
+
+ createCalendar();
 });
 
 createCalendar();
