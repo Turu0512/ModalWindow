@@ -27,8 +27,9 @@ if(isPlaying === true){
   return
 }
 isPlaying=true
-  startTime=Date.now();
-  setWord();
+  function start(){startTime=Date.now();
+  setWord();}
+  setTimeout(start,3000)//カスタムした部分
   
 });
 
@@ -47,8 +48,10 @@ if(e.key !== word[loc]){//早期リターン、アーリーリターン　処理
       const elapsedTime = ((Date.now() - startTime)/1000).toFixed(2); //完了までの時間
       const result = document.getElementById(`result`);
       result.textContent = `Finished! ${elapsedTime}  seconds!`;
-      return
-    }
+      return;
+    
+  }
+
     setWord();
   }
 });
