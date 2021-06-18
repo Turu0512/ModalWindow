@@ -11,6 +11,7 @@ const quizSet = [
   
 ];
 let currentNum = 0;
+let isAnswered;
 
 
 function shuffle(arr) {//渡された配列の入れ替えをしている
@@ -21,15 +22,27 @@ function shuffle(arr) {//渡された配列の入れ替えをしている
   }
 }
 
+
+
 function checkAnswer(li) {
-  if(li.textContent === quizSet[currentNum].c[0]){
-    console.log('correct');
-  }else{
-    console.log('wrong')
+  if(isAnswered){
+    return;
   }
+isAnswered=true;
+
+  if(li.textContent === quizSet[currentNum].c[0]){
+    li.classList.add(`correct`)
+  }else{
+    li.classList.add(`wrong`)
+  }
+
+  
 }
 
 function setQuiz(){
+  isAnswered=false;//まだ回答していないという状態
+  //checkAnswer(li)が実行されることで、すべてtrueに書き換わる。
+
   question.textContent = quizSet[currentNum].q;
   const shuffledChoices =shuffle([...quizSet[currentNum].c]);
   //配列のコピーを渡す。shuffle(quizSet[currentNum].c)では参照を渡してしまうため、中身の配列まで変わってしまう。
@@ -46,4 +59,6 @@ checkAnswer(li);
 }
 
 setQuiz();
+
+
 }
