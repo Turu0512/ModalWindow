@@ -10,24 +10,26 @@ var textLists = [
 ];
 var checkTexts = [];
 
-checkTexts = textLists[0].split('').map(function(value){
+creatText();
+
+function creatText(){
+  var rnd =Math.floor(Math.random()*textLists.length);
+  p.textContent = ''//文字列をリセットする
+checkTexts = textLists[rnd].split('').map(function(value){
   var span = document.createElement('span');
   span.textContent = value;
   p.appendChild(span);
-
+  // console.log(span)
   return span;
 });
-console.log(checkTexts);
-
-p.textContent = textLists[0];
-
-
-
-// console.log(checkText);
+}
+// console.log(checkTexts);
 
 document.addEventListener('keydown',e =>{
-  if(e.key === checkText[0]){
-    console.log('正解！')
+  if(e.key === checkTexts[0].textContent){
+    checkTexts[0].className = 'add-blue';
+    checkTexts.shift();
+    if(!checkTexts.length)creatText();
   }
 })
 }
