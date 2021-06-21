@@ -18,9 +18,9 @@ const days = now.diff(bday,'day')
 /*
 now = 2021-06-22
 
-bday: 2000-06-22-> this: 2021-06-23 -> next: 2022-06-23
-bday: 2000-06-23-> this: 2021-06-24 -> next: 2022-06-24
-bday: 2000-06-24-> this: 2021-06-25 -> next: 2021-06-25
+bday: 2000-06-21-> this: 2021-06-21 -> next: 2022-06-21 ->364
+bday: 2000-06-22-> this: 2021-06-22 -> next: 2022-06-22 ->365
+bday: 2000-06-23-> this: 2021-06-23 -> next: 2021-06-23 ->1
 */
 
 const thisBirthday = bday.clone().year(now.year());
@@ -34,7 +34,10 @@ if(now.isSameOrAfter(thisBirthday)){//同じか後か
   nextBirthday = thisBirthday;
 }
 
-return `今、${age}歳です！生まれてから${days}日経ちました！次の誕生日は${nextBirthday.format('LL')}`;
+// console.log(nextBirthday.diff(now, 'day',true));
+const left = Math.ceil(nextBirthday.diff(now,'day',true));
+//小数点切り上げ　ceil
+return `今、${age}歳です！生まれてから${days}日経ちました！次の誕生日は${nextBirthday.format('LL')}で、あと${left}日！`;
 }
 
 
