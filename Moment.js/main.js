@@ -1,15 +1,25 @@
 (()=>{
 'use strict'
-// const d = moment('2018-02-30');
-// console.log (d.isValid());//判別
 
-const d1 = moment('2018-02-03');
-const d2 = moment('2018-02-05');
-const d3 = moment('2018-02-08');
+const button = document.querySelector('button');
+const p =document.querySelector('p');
 
-// console.log(d1.isBefore(d2));//true
-// console.log(d1.isAfter(d2));//false
-// console.log(d1.isSame(d2));//false 同じかどうか
-// console.log(d2.isBetween(d1, d3));//true
-console.log(d2.isLeapYear());//false うるう年かどうか
+function getResult() {
+  const bday = moment(document.querySelector('input').value);
+
+  if(!bday.isValid()){
+    return '日付が無効です！'
+  }
+
+const now = moment();
+const age = now.diff(bday,'year')
+const days = now.diff(bday,'day')
+
+return `今、${age}歳です！生まれてから${days}日経ちました！`
+}
+
+button.addEventListener('click',()=>{
+  p.textContent = getResult();
+})
+
 })();
