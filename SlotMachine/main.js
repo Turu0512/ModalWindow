@@ -8,11 +8,17 @@ class Panel{
     section.classList.add('panel');
 
     this.img = document.createElement('img');
-    this.img.src='img/seven.png';
+    this.img.src=this.getRandomImage();
+
+    this.timeoutId = undefined;
 
     this.stop = document.createElement('div')
     this.stop.textContent = 'STOP';
     this.stop.classList.add('stop')
+    this.stop.addEventListener('click',()=>{
+      clearTimeout(this.timeoutId);
+      //clearTimeoutにtimeoutIdを渡すことでタイマーが止まる
+        })
     //thisを使うのは他に呼び出されたときに対応するため
   section.appendChild(this.img);
   section.appendChild(this.stop);
@@ -32,6 +38,10 @@ return images[Math.floor(Math.random()*images.length)]
 
   spin(){
     this.img.src = this.getRandomImage();
+    this.timeoutId=setTimeout(() =>{
+      //setTimeoutからIdを受け取る
+      this.spin();
+    },50);
   }
 }
 
