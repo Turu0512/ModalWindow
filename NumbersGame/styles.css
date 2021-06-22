@@ -1,0 +1,64 @@
+body {
+  background: #ccc;
+  color: #fff;
+  font-family: "Courier New", sans-serif;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+#container {
+  /*50px*2 + 10px * 2 */
+  width: 240px;
+  margin: 16px auto;
+  /* background: pink; */
+}
+
+#board {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#board li {
+  background: #00aaff;
+  width: 80px;
+  height: 80px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 80px;
+  text-align: center;
+  box-shadow: 0 4px 0 #0088cc;
+}
+
+#board li.pressed {
+  background: #ccc;
+  box-shadow: none;
+  margin-top: 9px; /* もともと幅に４ｐｘ足して沈み込み */
+  margin-bottom: 1px; /* もともと５ｐｘだから１ｐｘにして調節 */
+}
+
+#timer {
+  margin-bottom: 8px;
+  font-size: 20px;
+  text-align: right;
+}
+
+#btn {
+  cursor: pointer;
+  user-select: none;
+  background: #f44336;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 4px 0 #d1483e;
+}
+
+#btn:active {
+  margin-top: 12px;
+  box-shadow: none;
+}
