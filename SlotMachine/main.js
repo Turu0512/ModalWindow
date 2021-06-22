@@ -14,7 +14,7 @@ class Panel{
 
     this.stop = document.createElement('div')
     this.stop.textContent = 'STOP';
-    this.stop.classList.add('stop')
+    this.stop.classList.add('stop','inactive')
     this.stop.addEventListener('click',()=>{
       if(this.stop.classList.contains('inactive')){
         return;
@@ -25,6 +25,8 @@ class Panel{
       panelsLeft--;
 
       if(panelsLeft===0){//初期値が３でstopをすべて押し終えると発動
+        spin.classList.remove('inactive')
+        panelsLeft = 3;
         checkResult();
       }
         });
@@ -61,7 +63,13 @@ return images[Math.floor(Math.random()*images.length)]
   unmatch(){
     this.img.classList.add('unmatched');
   }
+
+  activate(){
+    this.img.classList.remove('unmatched')
+    this.stop.classList.remove('inactive')
+  }
 }
+
 function checkResult(){
   if(panels[0].isUnmatched(panels[1],panels[2])){
     panels[0].unmatch();
@@ -92,6 +100,7 @@ const spin =document.getElementById('spin');
     }
     spin.classList.add('inactive');
   panels.forEach(panel =>{
+    panel.activate();//スピンボタンを押したときにパネルとストップボタンについた処理をリセットするため
     panel.spin();
     //panelにはclass Panelから値を引き出してるので、panel()とするだけで実行される。
 
