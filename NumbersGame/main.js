@@ -2,7 +2,8 @@
 
 {
   class Panel {
-    constructor() {
+    constructor(game) {
+      this.game = game;
       this.el = document.createElement('li');
       this.el.classList.add('pressed');
       this.el.addEventListener('click', () => {
@@ -18,17 +19,23 @@
     }
 
     check() {
-      if (currentNum === parseInt(this.el.textContent, 10)) {
+      if (this.game.getCurrentNum() === parseInt(this.el.textContent, 10)) {
+        //第2引数として１０、１０進数で処理という意味
         this.el.classList.add('pressed');
-        currentNum++;
+        this.game.addCurrentNum();
+
+        if (this.game.getCurrentNum() === 4) {
+          clearTimeout(this.game.getTimeoutId());
+        }
       }
     }
   }
   class Board {
-    constructor() {
+    constructor(game) {
+      this.game = game;
       this.panels = [];
       for (let i = 0; i < 4; i++) {
-        this.panels.push(new Panel())
+        this.panels.push(new Panel(this.game))
       }
       this.setup();
     }
@@ -58,12 +65,58 @@
     }
   }
 
-  const board = new Board();
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  let currentNum = 0;
+  
+
+
+  class Game {
+constructor(){
+  this.board = new Board(this);
+
+  this.currentNum = undefined;
+  this.startTime = undefined;
+  this.timeoutId = undefined;
 
   const btn = document.getElementById('btn');
   btn.addEventListener('click', () => {
-    board.activate();
-  })
+    this.start();
+    }) 
+  }
+  start(){
+    if (typeof this.timeoutId !== 'undefined') {
+      clearTimeout(this.timeoutId);
+    }
+    this.currentNum = 0;
+    this.board.activate();
+
+    this.startTime = Date.now();
+    this.runTimer();
+  }
+    runTimer() {
+    const timer = document.getElementById('timer');
+    timer.textContent = ((Date.now() - this.startTime) / 1000).toFixed(2);
+    this.timeoutId = setTimeout(() => {
+      this.runTimer();
+    }, 10);
+  }
+  addCurrentNum() {
+    this.currentNum++;
+  }
+
+  getCurrentNum(){
+    return this.currentNum;
+  }
+
+  getTimeoutId(){
+    return this.timeoutId;
+  }
+  }
+  new Game();
+
 }
+
+// this有り
+// thisは、そのクラスのオブジェクトを表します。
+// よってクラス内でメソッドを跨いで変数を使いたい場合にthisをつけます。
+
+// this無し
+// そのメソッド内だけで使う変数の場合はthis不要です。
